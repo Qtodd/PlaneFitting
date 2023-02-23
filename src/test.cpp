@@ -18,12 +18,12 @@ bool PlaneFitting(const std::vector<Vector3VP> &points_input, double* center, do
 	}
 	
 	GRANSAC::RANSAC<PlaneModel, 3> Estimator;
-    Estimator.Initialize(0.1, 100); // Threshold, iterations
+    	Estimator.Initialize(0.1, 100); // Threshold, iterations
 
-    int64_t start = cv::getTickCount();
+    	int64_t start = cv::getTickCount();
 	Estimator.Estimate(CandPoints);
-    int64_t end = cv::getTickCount();
-    std::cout << "RANSAC took: " << GRANSAC::VPFloat(end - start) / GRANSAC::VPFloat(cv::getTickFrequency()) * 1000.0 << " ms." << std::endl;
+    	int64_t end = cv::getTickCount();
+    	std::cout << "RANSAC took: " << GRANSAC::VPFloat(end - start) / GRANSAC::VPFloat(cv::getTickFrequency()) * 1000.0 << " ms." << std::endl;
 	
 	auto BestPlane = Estimator.GetBestModel();
 	if (BestPlane == nullptr)
@@ -32,15 +32,16 @@ bool PlaneFitting(const std::vector<Vector3VP> &points_input, double* center, do
 	}
 	for (int i = 0; i < 3; i++)
 	{
-        center[i] = BestPlane->m_PointCenter[i];
+        	center[i] = BestPlane->m_PointCenter[i];
 	}
-    for (int i = 0; i < 4; i++)
-    {
-        normal[i] = BestPlane->m_PlaneCoefs[i];
-    }
+    	for (int i = 0; i < 4; i++)
+    	{
+        	normal[i] = BestPlane->m_PlaneCoefs[i];
+   	 }
 
 	return true;
 }
+
 int main()
 {
     // data generation
@@ -76,10 +77,3 @@ int main()
 
     return 0;
 }
-
-
-
-
-
-
-
